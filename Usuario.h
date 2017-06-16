@@ -11,6 +11,7 @@ class Usuario{
 		string nombre;
 		string contrasena;
 	public:
+		virtual ~Usuario();
 		Usuario(string,string);
 		Usuario();
 		string getNombre();

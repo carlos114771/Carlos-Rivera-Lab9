@@ -39,3 +39,5 @@ void Auto::setPrecio_alquiler(double precio_alquiler){
 double Auto::getPrecio_alquiler(){
    return precio_alquiler;
 }
+
+

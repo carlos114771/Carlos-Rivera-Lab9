@@ -18,3 +18,7 @@ void Administradores::setNumero_seguro(float numero_seguro){
 float Administradores::getNumero_seguro(){
    return numero_seguro;
 }
+
+Administradores::~Administradores(){
+	
+}

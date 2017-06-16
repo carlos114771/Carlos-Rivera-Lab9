@@ -11,7 +11,7 @@ class Administradores: public Usuario{
 		string cargo;
 		float numero_seguro;
 	public:
-
+		~Administradores();
 		Administradores(string,float,string,string);
 		Administradores();
 		string getCargo();

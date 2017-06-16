@@ -11,10 +11,12 @@ class Clientes: public Usuario{
 	private:
 		string membresia;
 	public:
+		~Clientes();
 		Clientes(string,string,string);
 		Clientes();
 		string getMembresia();
 		void setMembresia(string);
+		string getTipoMembresia(string);
 
 };
 #endif

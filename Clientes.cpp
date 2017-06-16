@@ -11,3 +11,18 @@ Clientes::Clientes(){
 string Clientes::getMembresia(){
    return membresia;
 }
+
+
+string Clientes::getTipoMembresia(string tipo){
+	string validar = "Normal";
+	if (validar.compare(tipo) == 0){
+		return "Normal";
+	} else if(validar.compare(tipo)==1){
+		return "Gold";
+	}else{
+		return "Premium";
+	}
+}
+Clientes::~Clientes(){
+	
+}

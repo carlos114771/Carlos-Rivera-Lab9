@@ -30,6 +30,7 @@ class Auto{
 
 		double getPrecio_alquiler();
 		void setPrecio_alquiler(double);
+		bool setEstado();
 
 };
 #endif

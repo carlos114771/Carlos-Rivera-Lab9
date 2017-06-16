@@ -18,3 +18,7 @@ void Usuario::setContrasena(string contrasena){
 string Usuario::getContrasena(){
    return contrasena;
 }
+
+Usuario::~Usuario(){
+	
+}

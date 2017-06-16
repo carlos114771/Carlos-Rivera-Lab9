@@ -1,0 +1,1 @@
+Cargo: jefe Numero de Seguro 125789 Nombre de Usuario carlos Contraseña 1234
