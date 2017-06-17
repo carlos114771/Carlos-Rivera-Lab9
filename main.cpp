@@ -20,12 +20,23 @@ int menuUsuario();
 int menuCliente();
 int menuAdministrador();
 int menuAutos();
+vector<Clientes*> cargarCliente(vector<Clientes*>);
+vector<Administradores*> cargarAdministrador(vector<Administradores*>);
+vector<Auto*> cargarAuto(vector<Auto*>);
 void lista(vector<Auto*>);
+
 string randomS();
 int main(){
-	vector<Usuario*> listausuario;
+	//vector<Usuario*> listausuario;
 	vector<Auto*> listaautos; 
 	ofstream archivo1,archivo2;
+	vector<Clientes*> listacliente;
+	vector<Administradores*> listaadministradores;
+	bool alquilado=false;
+	
+	listacliente=cargarCliente(listacliente);
+	listaadministradores=cargarAdministrador(listaadministradores);
+	listaautos = cargarAuto(listaautos);
 	archivo1.open("Administradores.txt",ios::app);
 	archivo2.open("Clientes.txt",ios::app);
 	bool salirTodo =false;
@@ -48,7 +59,7 @@ int main(){
 							cin>>nombre;
 							cout<<"Ingrese su contraña: "<<endl;
 							cin>>contrasena;
-							listausuario.push_back(new Administradores(cargo,numero_seguro,nombre,contrasena));
+							listaadministradores.push_back(new Administradores(cargo,numero_seguro,nombre,contrasena));
 							archivo1<<"Cargo: "<<cargo<<" Numero de Seguro: "<<numero_seguro<<" Nombre de Usuario: "<<nombre<<" Contraseña: "<<contrasena<<endl;
 							break;
 						}
@@ -62,8 +73,7 @@ int main(){
 							cin>>contrasena;
 							cout<<"Tipo de Membresia: ";
 							cin>>membresia;
-							listausuario.push_back(new Clientes(membresia,nombre,contrasena));
-							escribirCliente();
+							listacliente.push_back(new Clientes(membresia,nombre,contrasena));
 							archivo2<<"Nombre de Usuario: "<<nombre<<" Contraseña: "<<contrasena<<" Membresia "<<membresia<<endl;
 
 							break;
@@ -83,90 +93,115 @@ int main(){
 				cin>>nombre;
 				cout<<"Ingrese su contraseña: "<<endl;
 				cin>>contrasena;
-				for (int i = 0; i < listausuario.size(); ++i) {
-	    			if (listausuario.at(i) -> getNombre() == nombre && listausuario.at(i) -> getContrasena() == contrasena) {
-						if(dynamic_cast<Administradores*>(listausuario.at(i))) {
-							bool salirAdmin = false;
-							while(!salirAdmin){
-								switch(menuAdministrador()){
-									case 1:{
-										string placa;
-										string marca;
-										string modelo;
-										string anio;
-										double precio;
-
-										cout<<"Placa"<<endl;
-										randomS();
-										cout<<"Ingrese la marca del auto "<<endl;
-										cin>>marca;
-										cout<<"Ingrese el modelo del auto "<<endl;
-										cin>>modelo;
-										cout<<"Ingrese el año del auto "<<endl;
-										cin>>anio;
-										cout<<"Ingrese el precio del auto "<<endl;
-										cin>>precio;
-										listaautos.push_back(new Auto(randomS(),marca,modelo,anio,precio));
-
-										break;
+				for (int i = 0; i < listaadministradores.size(); ++i) {
+	    			if (listaadministradores.at(i) -> getNombre() == nombre && listaadministradores.at(i) -> getContrasena() == contrasena) {
+						//if(dynamic_cast<Administradores*>(listaadministradores.at(i))) {
+						bool salirAdmin = false;
+						while(!salirAdmin){
+							switch(menuAdministrador()){
+								case 1:{
+									string placa;
+									string marca;
+									string modelo;
+									string anio;
+									double precio;
+									placa=randomS();
+									cout<<"Placa"<<endl;
+									cout<<"Ingrese la marca del auto "<<endl;
+									cin>>marca;
+									cout<<"Ingrese el modelo del auto "<<endl;
+									cin>>modelo;
+									cout<<"Ingrese el año del auto "<<endl;
+									cin>>anio;
+									cout<<"Ingrese el precio del auto "<<endl;
+									cin>>precio;
+									listaautos.push_back(new Auto(randomS(),marca,modelo,anio,precio));
+									break;
+								}
+								case 2:{
+									int numero;
+									string placa, modelo,anio,marca;
+									double precio;
+									for (int i = 0; i < listaautos.size(); ++i){
+										cout<<i<<")"<<listaautos.at(i)->getPlaca()<<endl;
+										cout<<i<<")"<<listaautos.at(i)->getMarca()<<endl;
+										cout<<i<<")"<<listaautos.at(i)->getModelo()<<endl;
+										cout<<i<<")"<<listaautos.at(i)->getAnio()<<endl;
+										cout<<i<<")"<<listaautos.at(i)->getPrecio_alquiler()<<endl;
+										cout << "Ingrese la posición que desea modificar: ";
+		    							cin >> numero;
+		    							placa = randomS();
+		    							cout << "Placa: " << placa << endl;
+		    							cout << "Ingrese la marca del vehículo: ";
+		    							cin >> marca;
+		    							cout << "Ingrese el modelo del vehículo: ";
+		    							cin >> modelo;
+		    							cout << "Ingrese el año del vehículo: ";
+		   								cin >> anio;
+		   								cout << "Ingrese el precio del vehículo: ";
+		   								cin >> precio;
+		   								for (int j = 0; j < listaautos.size(); ++j){
+		   									listaautos.at(j)->setPlaca(placa);
+		   									listaautos.at(j)->setMarca(marca);
+		   									listaautos.at(j)->setModelo(modelo);
+		   									listaautos.at(j)->setAnio(anio);
+		   									listaautos.at(j)->setMarca(marca);
+		   									listaautos.at(j)->setPrecio_alquiler(precio);
+		   								}
 									}
-									case 2:{
-										break;
-									}
-									case 3:{
-									    int opcion;
-            							cout<<"Ingrese la posicion a eliminar"<<endl;
-            							cin>>opcion;
-            							listaautos.erase(listaautos.begin()+opcion);
-										break;
-									}
-									case 4:{
-										lista(listaautos);
-										break;
-									}
-									case 5:{
-										salirAdmin=true;
-										break;
-									}
+									break;
+								}
+								case 3:{
+							    	int opcion;
+            						cout<<"Ingrese la posicion a eliminar"<<endl;
+            						cin>>opcion;
+            						listaautos.erase(listaautos.begin()+opcion);
+									break;
+								}
+								case 4:{
+									lista(listaautos);
+									break;
+								}
+								case 5:{
+									salirAdmin=true;
+									break;
 								}
 							}
 						}
-						if(dynamic_cast<Clientes*>(listausuario.at(i))){
-							bool salirCliente = false;
-							while(!salirCliente){
-								switch(menuCliente()){
-									case 1:{
-										lista(listaautos);
-										int posicion;
-										cout<<"Seleccione el carro a rentar";
-										cin>>posicion;
-										listaautos.erase(listaautos.begin()+posicion);
-										break;
-									}
-									case 2:{
-
-										break;
-									}
-									case 3:{
-										break;
-									}
-									case 4:{
-										salirCliente=true;
-										break;
-									}
+					}
+				}
+				for (int i = 0; i < listacliente.size(); ++i){
+					if (listacliente.at(i) -> getNombre() == nombre && listacliente.at(i) -> getContrasena() == contrasena){
+						bool salirCliente = false;
+						while(!salirCliente){
+							switch(menuCliente()){
+								case 1:{
+									lista(listaautos);
+									int posicion;
+									cout<<"Seleccione el carro a rentar";
+									cin>>posicion;
+									listaautos.erase(listaautos.begin()+posicion);
+									alquilado=true;
+									break;
+								}
+								case 2:{
+									break;
+								}
+								case 3:{
+									lista(listaautos);
+									break;
+								}
+								case 4:{
+									salirCliente=true;
+									break;
 								}
 							}
-						}	
-	    			}
-	    		}
-				//if(nombre.compare())
-				
+						}
+					}
+				}
 				break;
 			}
 			case 3:{
-				break;
-			}
-			case 4:{
 				salirTodo=true;
 				break;
 			}
@@ -185,12 +220,11 @@ int menu(){
 		cout<< "-----MENU-----" << endl
 			<< "1.- Crear Usuario " << endl
 			<< "2.- Log In" << endl
-			<< "3.- Guardar " << endl
-			<< "4.- Salir" << endl;
+			<< "3.- Salir" << endl;
 		
 		cout<< "Ingrese una opcion: ";
 		cin>>opcion;
-		if (opcion > 0 && opcion <= 4)
+		if (opcion > 0 && opcion <= 3)
 			valido = true;
 		else {
 			cout << "Opcion no valida, intente de nuevo..." << endl;
@@ -252,12 +286,11 @@ int menuCliente(){
 			<< "1.- Rentar Autos " << endl
 			<< "2.- Guardar Factura " << endl
 			<< "3.- Listar Autos "<<endl
-			<< "4.- Eliminar " << endl
-			<< "5.- Salir" << endl;
+			<< "4.- Salir" << endl;
 		
 		cout<< "Ingrese una opcion: ";
 		cin>>opcion;
-		if (opcion > 0 && opcion <= 5)
+		if (opcion > 0 && opcion <= 4)
 			valido = true;
 		else {
 			cout << "Opcion no valida, intente de nuevo..." << endl;

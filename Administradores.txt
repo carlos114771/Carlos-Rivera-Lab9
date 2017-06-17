@@ -1,1 +1,2 @@
 Cargo: jefe Numero de Seguro 125789 Nombre de Usuario carlos Contraseña 1234
+Cargo: jefe Numero de Seguro: 1235 Nombre de Usuario: carlos Contraseña: 12345

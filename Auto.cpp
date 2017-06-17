@@ -40,4 +40,7 @@ double Auto::getPrecio_alquiler(){
    return precio_alquiler;
 }
 
+bool Auto::estaalquilado(){
+   alquilado =false;
+}
 

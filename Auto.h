@@ -13,6 +13,7 @@ class Auto{
 		string modelo;
 		string anio;
 		double precio_alquiler;
+		bool alquilado;
 	public:
 		Auto(string,string,string,string,double);
 		Auto();
@@ -23,6 +24,7 @@ class Auto{
 		void setMarca(string);
 
 		string getModelo();
+		bool estaalquilado();
 		void setModelo(string);
 
 		string getAnio();
